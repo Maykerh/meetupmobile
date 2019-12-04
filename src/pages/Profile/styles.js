@@ -3,14 +3,21 @@ import styled from 'styled-components/native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+export const Header = styled.View`
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background-color: #2a1a2e;
+`;
+
 export const Container = styled.SafeAreaView`
     flex: 1;
 `;
 
 export const Separator = styled.View`
     height: 1px;
-    background: rgba(0, 0, 0, 0.03);
-    margin: 12px 0 16px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 15px 0 20px;
 `;
 
 export const Form = styled.ScrollView.attrs({
@@ -29,13 +36,6 @@ export const SubmitButton = styled(Button)`
 `;
 
 export const LogoutButton = styled(Button)`
-    margin-top: 20px;
+    margin-top: 10px;
     background: #f64c75;
-`;
-
-export const Header = styled.View`
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    background-color: #2a1a2e;
 `;

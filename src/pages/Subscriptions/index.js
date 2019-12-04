@@ -8,8 +8,9 @@ import api from '../../services/api';
 import Loading from '../../components/Loading';
 import Meetup from '../../components/Meetup';
 import Logo from '../../components/Logo';
+import Background from '../../components/Background';
 
-import { Container, List, Empty, EmptyText, Header } from './styles';
+import { Container, List, EmptyState, EmptyMessage, Header } from './styles';
 
 function Subscriptions({ isFocused }) {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -21,6 +22,7 @@ function Subscriptions({ isFocused }) {
         const response = await api.get('subscriptions');
 
         setSubscriptions(response.data);
+
         setLoading(false);
     }
 
@@ -30,57 +32,45 @@ function Subscriptions({ isFocused }) {
         }
     }, [isFocused]);
 
-    async function handleCancel(id) {
-        try {
-            await api.delete(`subscriptions/${id}`);
-            Alert.alert('Sucesso', 'Sua inscrição foi cancelada!');
-            loadSubscriptions();
-        } catch (error) {
-            const message = error.response.data.error;
-            Alert.alert('Error', message);
-        }
+    var component = null;
+
+    if (loading) {
+        component = <Loading />;
+    } else if (!subscriptions || subscriptions.length === 0) {
+        component = (
+            <EmptyState>
+                <Icon name="event-busy" size={45} color="rgba(0, 0, 0, .15)" />
+                <EmptyMessage>
+                    {'Você ainda não se inscreveu em nenhum meetup'}
+                </EmptyMessage>
+            </EmptyState>
+        );
+    } else {
+        component = (
+            <List
+                data={subscriptions}
+                keyExtractor={item => String(item.id)}
+                renderItem={({ item }) => (
+                    <Meetup data={item} handleCancel={() => {}} />
+                )}
+            />
+        );
     }
 
     return (
-        <>
+        <Background>
             <Header>
                 <Logo size={40} />
             </Header>
-            <Container>
-                {loading && <Loading />}
-
-                {!loading &&
-                    (subscriptions.length ? (
-                        <List
-                            data={subscriptions}
-                            keyExtractor={item => String(item.id)}
-                            renderItem={({ item }) => (
-                                <Meetup
-                                    data={item.meetup}
-                                    handleCancel={() => handleCancel(item.id)}
-                                />
-                            )}
-                        />
-                    ) : (
-                        <Empty>
-                            <Icon
-                                name="event-busy"
-                                size={45}
-                                color="rgba(0, 0, 0, .15)"
-                            />
-                            <EmptyText>
-                                You haven't subscribed to any meetups yet.
-                            </EmptyText>
-                        </Empty>
-                    ))}
-            </Container>
-        </>
+            <Container>{component}</Container>
+        </Background>
     );
 }
 Subscriptions.navigationOptions = {
-    tabBarLabel: 'Inscrições',
+    tabBarLabel: 'Minhas inscrições',
     tabBarIcon: ({ tintColor }) => (
         <Icon name="event" size={20} color={tintColor} />
     )
 };
+
 export default withNavigationFocus(Subscriptions);

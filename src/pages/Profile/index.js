@@ -6,6 +6,7 @@ import { updateProfileRequest } from '../../store/modules/user/actions';
 import { signOut } from '../../store/modules/auth/actions';
 
 import Logo from '../../components/Logo';
+import Background from '../../components/Background';
 
 import {
     Container,
@@ -55,7 +56,7 @@ export default function Profile() {
     }
 
     return (
-        <>
+        <Background>
             <Header>
                 <Logo size={40} />
             </Header>
@@ -128,7 +129,7 @@ export default function Profile() {
                     <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
                 </Form>
             </Container>
-        </>
+        </Background>
     );
 }
 

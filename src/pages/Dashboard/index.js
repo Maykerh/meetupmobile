@@ -97,7 +97,7 @@ function Dashboard({ isFocused }) {
 
 Dashboard.navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
-        <Icon name="event" size={20} color={tintColor} />
+        <Icon name="format-list-bulleted" size={20} color={tintColor} />
     )
 };
 

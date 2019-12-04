@@ -8,6 +8,8 @@ import Button from '../Button';
 import { Container, Image, Info, Title, InfoRow, InfoText } from './styles';
 
 export default function Meetup({ data, handleRegister, handleCancel }) {
+    console.tron.log(['data -> ', data]);
+
     return (
         <Container>
             <Image
