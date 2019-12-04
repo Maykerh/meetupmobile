@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Background from '../../components/Background';
@@ -26,6 +25,7 @@ export default function SignIn({ navigation }) {
     const loading = useSelector(state => state.auth.loading);
 
     function handleSubmit() {
+        alert('jhaha');
         dispatch(signInRequest(email, password));
     }
 

@@ -1,7 +1,7 @@
 import { Alert } from 'react-native';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import api from '../../../services/api';
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
     try {
@@ -26,8 +26,6 @@ export function* signIn({ payload }) {
         api.defaults.headers.Authorization = `Bearer ${token}`;
 
         yield put(signInSuccess(token, user));
-
-        // history.push('/dashboard');
     } catch (err) {
         Alert.alert('Falha na autenticação', 'Verifique seus dados');
         yield put(signFailure());
@@ -44,7 +42,9 @@ export function* signUp({ payload }) {
             password
         });
 
-        // history.push('/');
+        Alert.alert('Pronto', 'Cadastro efetuado com sucesso');
+
+        yield put(signUpSuccess());
     } catch (err) {
         Alert.alert('Falha na autenticação', 'Verifique seus dados');
 

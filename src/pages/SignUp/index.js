@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -29,9 +28,10 @@ export default function SignUp({ navigation }) {
     const loading = useSelector(state => state.auth.loading);
 
     function handleSubmit() {
+        console.tron.log('haha');
         dispatch(signUpRequest(name, email, password));
     }
-
+    console.tron.log('haha22');
     return (
         <Background>
             <Container>
